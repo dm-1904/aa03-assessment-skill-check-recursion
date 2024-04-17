@@ -45,30 +45,50 @@ solution code must meet the following constraints:
 
 /* PROBLEM 1. findDuplicatesIterative: Must solve with iteration, not recursion */
 
-function findDuplicatesIterative(array) {
-  let arr = []
-  for (let i = 0; i < array.length; i++) {
-    for (let j = i + 1; j < array.length; j++) {
-      if (array[i] === array[j] && !arr.includes(array[j])) arr.push(array[j])
-    }
-  }
-  console.log(arr)
-return arr
-}
-findDuplicatesIterative([ 5, 8, 8, 2, 3 ]);
-// [ 8 ]
-findDuplicatesIterative([ 5, 8, 8, 8, 2, 3, 3 ]);
-// [ 8, 3 ] (only one 8; order of elements does not matter)
-findDuplicatesIterative([ 'a', 'word', 'a', 'another', 'word' ]);
-// [ 'word', 'a' ] (order of elements does not matter)
+// function findDuplicatesIterative(array) {
+//   let arr = []
+//   for (let i = 0; i < array.length; i++) {
+//     for (let j = i + 1; j < array.length; j++) {
+//       if (array[i] === array[j] && !arr.includes(array[j])) arr.push(array[j])
+//     }
+//   }
+//   // console.log(arr)
+// return arr
+// }
+// findDuplicatesIterative([ 5, 8, 8, 2, 3 ]);
+// // [ 8 ]
+// findDuplicatesIterative([ 5, 8, 8, 8, 2, 3, 3 ]);
+// // [ 8, 3 ] (only one 8; order of elements does not matter)
+// findDuplicatesIterative([ 'a', 'word', 'a', 'another', 'word' ]);
+// // [ 'word', 'a' ] (order of elements does not matter)
 
 
 
 /* PROBLEM 2. findDuplicatesRecursive: Must solve with recursion */
 
-// Your code here
+function findDuplicatesRecursive(array, i = 0, seen = new Map(), duplicates = []) {
+  // console.log(i)
+  if(i === array.length) {
+    return duplicates;
+  }
+  const el = array[i];
+  if(seen.has(el)) {
+  if(!seen.get(el)) {
+    seen.set(el, true);
+    duplicates.push(el);
+    }
+  } else {
+    seen.set(el, false);
+  }i++
+  return findDuplicatesRecursive(array, i, seen, duplicates);
+}
 
-
+console.log(findDuplicatesRecursive([ 5, 8, 8, 2, 3 ]));
+// [ 8 ]
+console.log(findDuplicatesRecursive([ 5, 8, 8, 8, 2, 3, 3 ]));
+// [ 8, 3 ] (only one 8; order of elements does not matter)
+console.log(findDuplicatesRecursive([ 'a', 'word', 'a', 'another', 'word' ]));
+// [ 'word', 'a' ] (order of elements does not matter)
 
 /* PROBLEM 3. findDuplicatesNoDefault: Must use recursion with no default parameters */
 
