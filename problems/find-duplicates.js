@@ -66,36 +66,56 @@ solution code must meet the following constraints:
 
 /* PROBLEM 2. findDuplicatesRecursive: Must solve with recursion */
 
-function findDuplicatesRecursive(array, i = 0, seen = new Map(), duplicates = []) {
-  // console.log(i)
-  if(i === array.length) {
-    return duplicates;
-  }
-  const el = array[i];
-  if(seen.has(el)) {
-  if(!seen.get(el)) {
-    seen.set(el, true);
-    duplicates.push(el);
-    }
-  } else {
-    seen.set(el, false);
-  }i++
-  return findDuplicatesRecursive(array, i, seen, duplicates);
-}
+// function findDuplicatesRecursive(array, i = 0, seen = new Map(), duplicates = []) {
+//   // console.log(i)
+//   if(i === array.length) {
+//     return duplicates;
+//   }
+//   const el = array[i];
+//   if(seen.has(el)) {
+//   if(!seen.get(el)) {
+//     seen.set(el, true);
+//     duplicates.push(el);
+//     }
+//   } else {
+//     seen.set(el, false);
+//   }i++
+//   return findDuplicatesRecursive(array, i, seen, duplicates);
+// }
 
-console.log(findDuplicatesRecursive([ 5, 8, 8, 2, 3 ]));
-// [ 8 ]
-console.log(findDuplicatesRecursive([ 5, 8, 8, 8, 2, 3, 3 ]));
-// [ 8, 3 ] (only one 8; order of elements does not matter)
-console.log(findDuplicatesRecursive([ 'a', 'word', 'a', 'another', 'word' ]));
-// [ 'word', 'a' ] (order of elements does not matter)
+// console.log(findDuplicatesRecursive([ 5, 8, 8, 2, 3 ]));
+// // [ 8 ]
+// console.log(findDuplicatesRecursive([ 5, 8, 8, 8, 2, 3, 3 ]));
+// // [ 8, 3 ] (only one 8; order of elements does not matter)
+// console.log(findDuplicatesRecursive([ 'a', 'word', 'a', 'another', 'word' ]));
+// // [ 'word', 'a' ] (order of elements does not matter)
 
 /* PROBLEM 3. findDuplicatesNoDefault: Must use recursion with no default parameters */
+function findDuplicatesNoDefault(array){
+  let obj = {}
+  let arr = []
+  let newArr = array.pop(1)
+  for(let el of array){
+    if(obj[el]) obj[el]++
+    else(obj[el] = 1)
+  }
 
-// Your code here
+  if(array.length === 0){
+    for(let el in obj){
+      if(obj[el]>1) arr.push(el)
+    }
+  }
+  return findDuplicatesNoDefault(newArr)
+}
 
 
 
+console.log(findDuplicatesNoDefault([ 5, 8, 8, 2, 3 ]));
+// [ 8 ]
+console.log(findDuplicatesNoDefault([ 5, 8, 8, 8, 2, 3, 3 ]));
+// [ 8, 3 ] (only one 8; order of elements does not matter)
+console.log(findDuplicatesNoDefault([ 'a', 'word', 'a', 'another', 'word' ]));
+// [ 'word', 'a' ] (order of elements does not matter)
 /* PROBLEM 4. findDuplicatesChallenge: No for/while loops OR array looping methods */
 
 // Your code here
