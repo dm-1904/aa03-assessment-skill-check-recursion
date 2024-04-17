@@ -45,25 +45,40 @@ solution code must meet the following constraints:
 
 /* PROBLEM 1. findDuplicatesIterative: Must solve with iteration, not recursion */
 
-// Your code here 
+function findDuplicatesIterative(array) {
+  let arr = []
+  for (let i = 0; i < array.length; i++) {
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[i] === array[j] && !arr.includes(array[j])) arr.push(array[j])
+    }
+  }
+  console.log(arr)
+return arr
+}
+findDuplicatesIterative([ 5, 8, 8, 2, 3 ]);
+// [ 8 ]
+findDuplicatesIterative([ 5, 8, 8, 8, 2, 3, 3 ]);
+// [ 8, 3 ] (only one 8; order of elements does not matter)
+findDuplicatesIterative([ 'a', 'word', 'a', 'another', 'word' ]);
+// [ 'word', 'a' ] (order of elements does not matter)
 
 
 
 /* PROBLEM 2. findDuplicatesRecursive: Must solve with recursion */
 
-// Your code here 
+// Your code here
 
 
 
 /* PROBLEM 3. findDuplicatesNoDefault: Must use recursion with no default parameters */
 
-// Your code here 
+// Your code here
 
 
 
 /* PROBLEM 4. findDuplicatesChallenge: No for/while loops OR array looping methods */
 
-// Your code here 
+// Your code here
 
 
 /*
