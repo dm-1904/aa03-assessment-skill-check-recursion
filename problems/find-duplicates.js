@@ -143,6 +143,18 @@ function findDuplicatesNoDefault(array) {
 
 }
 
+function findDuplicatesNoDefault(array) {
+  if (array.length === 0) return []
+  let firstEl = array[0]
+  let rest = array.slice(1)
+  let duplicates = rest.filter(el => el === firstEl)
+  if (duplicates.length > 0){
+    return [firstEl, ...findDuplicatesNoDefault(rest.filter(el => el !== firstEl))]
+  } else {
+    return findDuplicatesNoDefault(rest)
+  }
+
+}
 console.log(findDuplicatesNoDefault([ 5, 8, 8, 2, 3 ]));
 // [ 8 ]
 debugger
