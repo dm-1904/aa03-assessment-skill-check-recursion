@@ -91,27 +91,61 @@ solution code must meet the following constraints:
 // // [ 'word', 'a' ] (order of elements does not matter)
 
 /* PROBLEM 3. findDuplicatesNoDefault: Must use recursion with no default parameters */
-function findDuplicatesNoDefault(array){
-  let obj = {}
-  let arr = []
-  let newArr = array.pop(1)
-  for(let el of array){
-    if(obj[el]) obj[el]++
-    else(obj[el] = 1)
+
+
+// function findDuplicatesNoDefault(array){
+//   let arr = []
+//   let shift = array.shift()
+//   // if((!arr.includes(shift)) && (array.includes(shift))) arr.push(shift)
+//   for(let el of array){
+//     if(el === shift && !arr.includes(shift)) arr.push(shift)
+//   }
+//   if(array.length === 0) return arr
+//   return [arr + findDuplicatesNoDefault(array)]
+// }
+
+function findDuplicatesNoDefault(array) {
+  // base case: return an empty array. This works if there are no numbers
+  // or we've reached the end of the array
+  if (array.length === 0) return []
+
+  // It's easiest for me to remove the first element
+  // the recursive step that uses less memory is to slice to return
+  // elements after the first index
+  let firstEl = array[0]
+  let rest = array.slice(1)
+
+  // to prevent writing out a for loop, filter will loop and return an array
+  // I want the elements in the rest array to give me an array that matches
+  // the firstEl
+  let duplicates = rest.filter(el => el === firstEl)
+
+  // If the filter returns an array with numbers...
+  if (duplicates.length > 0){
+    /*
+      ==== Note ====
+      This was a weird way for me to get this to work, so I'll explain it.
+      Because the duplicates return an array we can copy the contents into
+      the array. Of course I want to return the element itself,
+
+      but it was passing the same number inside.
+
+      The workaround was another filter when passing the function again, but this time
+      filtering every element that doesn't match the firstEl
+
+      This feels buggy to me, but
+    */
+    return [firstEl, ...findDuplicatesNoDefault(rest.filter(el => el !== firstEl))]
+  } else {
+    // otherwise, we repeat the process just with the new array
+    return findDuplicatesNoDefault(rest)
   }
 
-  if(array.length === 0){
-    for(let el in obj){
-      if(obj[el]>1) arr.push(el)
-    }
-  }
-  return findDuplicatesNoDefault(newArr)
 }
-
-
 
 console.log(findDuplicatesNoDefault([ 5, 8, 8, 2, 3 ]));
 // [ 8 ]
+debugger
 console.log(findDuplicatesNoDefault([ 5, 8, 8, 8, 2, 3, 3 ]));
 // [ 8, 3 ] (only one 8; order of elements does not matter)
 console.log(findDuplicatesNoDefault([ 'a', 'word', 'a', 'another', 'word' ]));
